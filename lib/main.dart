@@ -8,135 +8,232 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Solutions Challenge',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-        canvasColor: Colors.pink,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: DefaultPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+class DefaultPage extends StatefulWidget {
+  const DefaultPage({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<DefaultPage> createState() => _DefaultPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _DefaultPageState extends State<DefaultPage> {
+  int pageIndex = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  final pages = [
+    const HomePage(),
+    const EventsPage(),
+    const HomePage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+      body: pages[pageIndex],
+      extendBody: true,
+      bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
+        backgroundColor: Color.fromARGB(255, 71, 52, 52).withOpacity(0.25),
+        iconSize: 35,
+        selectedFontSize: 20,
+        selectedIconTheme: const IconThemeData(
+          color: Colors.amberAccent,
+          size: 40,
+        ),
+        selectedItemColor: Colors.amberAccent,
+        selectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+        showUnselectedLabels: false,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.event),
+            label: 'Events',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Extra',
+          ),
+        ],
+        currentIndex: pageIndex,
+        onTap: _onItemTapped,
       ),
-      body: Stack(
+    );
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      pageIndex = index;
+    });
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      child: Stack(
         children: [
-          Positioned(
-            child: Container(
-              height: 200,
-              width: 200,
-              color: Colors.blue,
-            ),
-            top: 100,
-            left: 100,
+          Image.network(
+            'https://webgradients.com/public/webgradients_png/179%20Fabled%20Sunset.png',
+            fit: BoxFit.cover,
+            height: double.infinity,
+            width: double.infinity,
+            scale: 1,
           ),
-          Positioned(
-            child: Container(
-              height: 200,
-              width: 200,
-              color: Colors.blue,
+          SafeArea(
+            child: Center(
+              child: GlassmorphicContainer(
+                  width: 350,
+                  height: 750,
+                  borderRadius: 20,
+                  blur: 20,
+                  alignment: Alignment.bottomCenter,
+                  border: 2,
+                  linearGradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      const Color(0xFFffffff).withOpacity(0.1),
+                      const Color(0xFFFFFFFF).withOpacity(0.05),
+                    ],
+                    stops: const [
+                      0.1,
+                      1,
+                    ],
+                  ),
+                  borderGradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      const Color(0xFFffffff).withOpacity(0.5),
+                      const Color((0xFFFFFFFF)).withOpacity(0.5),
+                    ],
+                  ),
+                  child: null),
             ),
-            bottom: 100,
-            left: 100,
           ),
-          Positioned(
-            child: GlassmorphicContainer(
-              linearGradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color(0xFFffffff).withOpacity(0.1),
-                  Color(0xFFFFFFFF).withOpacity(0.05),
-                ],
-              ),
-              border: 2,
-              borderRadius: 20,
-              borderGradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  const Color(0xFFffffff).withOpacity(0.8),
-                  const Color(0xFFFFFFFF).withOpacity(1),
-                ],
-              ),
-              blur: 15,
-              padding: const EdgeInsets.all(20),
-              width: 300,
-              height: 300,
-              // background color
-              // child
-              child: const Text(
-                'You have pushed the button this many times:',
-              ),
-            ),
-            top: 150,
-            left: 20,
-          )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class EventsPage extends StatefulWidget {
+  const EventsPage({Key? key}) : super(key: key);
+
+  @override
+  State<EventsPage> createState() => _EventsPageState();
+}
+
+class _EventsPageState extends State<EventsPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      child: Stack(
+        children: [
+          Image.network(
+            'https://webgradients.com/public/webgradients_png/179%20Fabled%20Sunset.png',
+            fit: BoxFit.cover,
+            height: double.infinity,
+            width: double.infinity,
+            scale: 1,
+          ),
+          Positioned(
+              child: SafeArea(
+                child: Center(
+                  child: GlassmorphicContainer(
+                      width: 350,
+                      height: 200,
+                      borderRadius: 20,
+                      blur: 20,
+                      alignment: Alignment.bottomCenter,
+                      border: 2,
+                      linearGradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          const Color(0xFFffffff).withOpacity(0.1),
+                          const Color(0xFFFFFFFF).withOpacity(0.05),
+                        ],
+                        stops: const [
+                          0.1,
+                          1,
+                        ],
+                      ),
+                      borderGradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          const Color(0xFFffffff).withOpacity(0.5),
+                          const Color((0xFFFFFFFF)).withOpacity(0.5),
+                        ],
+                      ),
+                      child: null),
+                ),
+              ),
+              top: 10,
+              left: 10),
+          Positioned(
+            child: SafeArea(
+              child: Center(
+                child: GlassmorphicContainer(
+                    width: 350,
+                    height: 100,
+                    borderRadius: 20,
+                    blur: 20,
+                    alignment: Alignment.bottomCenter,
+                    border: 2,
+                    linearGradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        const Color(0xFFffffff).withOpacity(0.1),
+                        const Color(0xFFFFFFFF).withOpacity(0.05),
+                      ],
+                      stops: const [
+                        0.1,
+                        1,
+                      ],
+                    ),
+                    borderGradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        const Color(0xFFffffff).withOpacity(0.5),
+                        const Color((0xFFFFFFFF)).withOpacity(0.5),
+                      ],
+                    ),
+                    child: null),
+              ),
+            ),
+            top: 250,
+            left: 10,
+          ),
+        ],
+      ),
     );
   }
 }
