@@ -1,9 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_solution_challenge/theme.dart';
+import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
 import 'package:gdsc_solution_challenge/widgets/bottom_navigation.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const AppWithProviderSetup());
+}
+
+class AppWithProviderSetup extends StatelessWidget {
+  const AppWithProviderSetup({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // setting up provider for controlling themes
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => Themes(),
+        )
+      ],
+      child: const MyApp(),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -11,15 +29,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: blueBackgroundGradient,
-      ),
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: blueTheme,
-        home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      ),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: context.watch<Themes>().currentTheme,
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -36,21 +49,26 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: context.watch<Themes>().currentThemeBackgroundGradient,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-          ],
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
         ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const <Widget>[
+              Text(
+                'You have pushed the button this many times:',
+              ),
+            ],
+          ),
+        ),
+        bottomNavigationBar: const CustomBottomNavigationBar(),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }
