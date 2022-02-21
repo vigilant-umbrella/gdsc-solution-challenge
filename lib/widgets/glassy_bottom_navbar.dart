@@ -2,15 +2,15 @@ import 'package:gdsc_solution_challenge/custom_components/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:glass_kit/glass_kit.dart';
 
-class CustomBottomNavigationBar extends StatefulWidget {
-  const CustomBottomNavigationBar({Key? key}) : super(key: key);
+class GlassyCustomBottomNavBar extends StatefulWidget {
+  const GlassyCustomBottomNavBar({Key? key}) : super(key: key);
 
   @override
-  State<CustomBottomNavigationBar> createState() =>
-      _CustomBottomNavigationBarState();
+  State<GlassyCustomBottomNavBar> createState() =>
+      _GlassyCustomBottomNavBarState();
 }
 
-class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
+class _GlassyCustomBottomNavBarState extends State<GlassyCustomBottomNavBar> {
   int _selectedIndex = 0;
 
   @override
