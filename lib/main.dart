@@ -33,6 +33,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: context.watch<Themes>().currentTheme,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // removing the debug banner from devenvironment
+      debugShowCheckedModeBanner: false,
     );
   }
 }
