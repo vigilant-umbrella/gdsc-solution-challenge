@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_solution_challenge/providers/event_provider.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
 import 'package:gdsc_solution_challenge/widgets/event_card.dart';
+import 'package:gdsc_solution_challenge/widgets/new_event.dart';
 import 'package:gdsc_solution_challenge/widgets/glassy_bottom_navbar.dart';
 import 'package:provider/provider.dart';
 
@@ -55,6 +56,7 @@ class EventsScreen extends StatelessWidget {
         ),
         bottomNavigationBar: const GlassyCustomBottomNavBar(),
         extendBody: true,
+        floatingActionButton: const NewEventButton(),
       ),
     );
   }
