@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_solution_challenge/providers/event_provider.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
 import 'package:gdsc_solution_challenge/screens/events_screen.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,10 @@ class AppWithProviderSetup extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => Themes(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (_) => Events(),
+        ),
       ],
       child: const MyApp(),
     );
