@@ -7,10 +7,44 @@
     "type": "Cleanup Drive",
     "tags": ["Waste Managament", "Beach", "Goa"],
     "description": "The people of Goa would like to launch a clean-up drive of the trash that has accumulated in our lovely Colva Beach. Come help us in our efforts to keep Goa clean!",
-    "image": "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+    "image": "https://images.unsplash.com/photo-1645474906529-7694e00d9319?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2792&q=80",
     "organizerId": "o1",
     "organizerName": "Sandy",
     "eventId": "e1",
+    "location": {
+      "lat": 15.2993,
+      "lng": 74.124
+    }
+  },
+  {
+    "eventTitle": "Birds Preservation",
+    "date": "3/3/2022",
+    "startsAt": "10:00",
+    "venue": "Colva Beach, Goa",
+    "type": "Cleanup Drive",
+    "tags": ["Nature", "Beach", "Goa"],
+    "description": "The people of Goa would like to launch a clean-up drive of the trash that has accumulated in our lovely Colva Beach. Come help us in our efforts to keep Goa clean!",
+    "image": "https://images.unsplash.com/photo-1645508420370-09b85d6fb924?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3669&q=80",
+    "organizerId": "o2",
+    "organizerName": "Sandy",
+    "eventId": "e2",
+    "location": {
+      "lat": 15.2993,
+      "lng": 74.124
+    }
+  },
+  {
+    "eventTitle": "Nature And Mind",
+    "date": "3/3/2022",
+    "startsAt": "10:00",
+    "venue": "Colva Beach, Goa",
+    "type": "Cleanup Drive",
+    "tags": ["Self Awareness", "Beach", "Goa"],
+    "description": "The people of Goa would like to launch a clean-up drive of the trash that has accumulated in our lovely Colva Beach. Come help us in our efforts to keep Goa clean!",
+    "image": "https://images.unsplash.com/photo-1640622842008-1897f26aafe3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80",
+    "organizerId": "o3",
+    "organizerName": "Sandy",
+    "eventId": "e3",
     "location": {
       "lat": 15.2993,
       "lng": 74.124
@@ -24,10 +58,10 @@
     "type": "Tree Plantation",
     "tags": ["Tree Plantation", "Park", "Delhi"],
     "description": "Ped ugao!!",
-    "image": "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+    "image": "https://images.unsplash.com/photo-1645475834138-757644b53d2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
     "organizerId": "o2",
     "organizerName": "Sandy",
-    "eventId": "e2",
+    "eventId": "e4",
     "location": {
       "lat": 28.7041,
       "lng": 77.1025
