@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_solution_challenge/providers/event_provider.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
 import 'package:gdsc_solution_challenge/widgets/glassy_bottom_navbar.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +31,12 @@ class EventsScreen extends StatelessWidget {
           child: Text('Events'),
         ),
         bottomNavigationBar: const GlassyCustomBottomNavBar(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Provider.of<Events>(context, listen: false).fetchAndSetEvents();
+          },
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

@@ -1,0 +1,36 @@
+[
+  {
+    "eventTitle": "Waste Recycling",
+    "date": "3/3/2022",
+    "startsAt": "10:00",
+    "venue": "Colva Beach, Goa",
+    "type": "Cleanup Drive",
+    "tags": ["Waste Managament", "Beach", "Goa"],
+    "description": "The people of Goa would like to launch a clean-up drive of the trash that has accumulated in our lovely Colva Beach. Come help us in our efforts to keep Goa clean!",
+    "image": "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+    "organizerId": "o1",
+    "organizerName": "Sandy",
+    "eventId": "e1",
+    "location": {
+      "lat": 15.2993,
+      "lng": 74.124
+    }
+  },
+  {
+    "eventTitle": "Plant treeeees",
+    "date": "4/4/2022",
+    "startsAt": "12:00",
+    "venue": "Central Park, Delhi",
+    "type": "Tree Plantation",
+    "tags": ["Tree Plantation", "Park", "Delhi"],
+    "description": "Ped ugao!!",
+    "image": "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+    "organizerId": "o2",
+    "organizerName": "Sandy",
+    "eventId": "e2",
+    "location": {
+      "lat": 28.7041,
+      "lng": 77.1025
+    }
+  }
+]
