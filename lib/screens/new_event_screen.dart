@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
-import 'package:gdsc_solution_challenge/widgets/glassy_bottom_navbar.dart';
 import 'package:provider/provider.dart';
 
 class NewEventScreen extends StatelessWidget {
@@ -18,12 +17,11 @@ class NewEventScreen extends StatelessWidget {
       ),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Events'),
+          title: const Text('Add new event'),
         ),
         body: const Center(
-          child: Text('Events'),
+          child: Text('TODO: New Event Form here'),
         ),
-        bottomNavigationBar: const GlassyCustomBottomNavBar(),
         extendBody: true,
       ),
     );
