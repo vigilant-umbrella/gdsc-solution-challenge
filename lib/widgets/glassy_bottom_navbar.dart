@@ -1,22 +1,25 @@
+import 'dart:io';
+
 import 'package:gdsc_solution_challenge/custom_components/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:glass_kit/glass_kit.dart';
 
-class GlassyCustomBottomNavBar extends StatefulWidget {
-  const GlassyCustomBottomNavBar({Key? key}) : super(key: key);
+class GlassyCustomBottomNavBar extends StatelessWidget {
+  final int currentIndex;
+  final void Function(int) onTap;
 
-  @override
-  State<GlassyCustomBottomNavBar> createState() =>
-      _GlassyCustomBottomNavBarState();
-}
+  GlassyCustomBottomNavBar({
+    Key? key,
+    required this.currentIndex,
+    required this.onTap,
+  }) : super(key: key);
 
-class _GlassyCustomBottomNavBarState extends State<GlassyCustomBottomNavBar> {
-  int _selectedIndex = 0;
+  final _containerHeight = Platform.isIOS ? 100.00 : 70.00;
 
   @override
   Widget build(BuildContext context) {
     return GlassContainer.clearGlass(
-      height: 70,
+      height: _containerHeight,
       width: double.maxFinite,
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(20),
@@ -30,15 +33,11 @@ class _GlassyCustomBottomNavBarState extends State<GlassyCustomBottomNavBar> {
         vertical: 10,
       ),
       child: BottomNavyBar(
-        selectedIndex: _selectedIndex,
+        selectedIndex: currentIndex,
         showElevation: false,
         backgroundColor: Colors.transparent,
-        containerHeight: 70,
-        onItemSelected: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
+        containerHeight: _containerHeight,
+        onItemSelected: (index) => onTap(index),
         items: [
           BottomNavyBarItem(
             icon: const Icon(Icons.home),
