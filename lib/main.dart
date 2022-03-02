@@ -37,12 +37,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'App',
       theme: context.watch<Themes>().currentTheme,
       debugShowCheckedModeBanner: false,
 
-      // initially EventsScreen is set to be at '/' route
-      // coz this is the only route in the app currently
       initialRoute: EventsScreen.routeName,
       routes: {
         EventsScreen.routeName: (_) => const EventsScreen(),
