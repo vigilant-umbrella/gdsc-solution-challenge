@@ -37,6 +37,8 @@ dependencies:
   glass_kit: ^2.0.1
   provider: ^6.0.2
   sliding_up_panel: ^2.0.0+1
+  intl: ^0.17.0
+  states_rebuilder: ^6.0.0
 
 dev_dependencies:
   flutter_test:
