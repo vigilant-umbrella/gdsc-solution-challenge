@@ -23,7 +23,16 @@ class _NewEventScreenState extends State<NewEventScreen> {
   final _locationController = TextEditingController();
   final _imageController = TextEditingController();
   List<String> _tags = [];
-  String dropdownValue = 'One';
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _dateinput.dispose();
+    _timeinput.dispose();
+    _locationController.dispose();
+    _imageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
