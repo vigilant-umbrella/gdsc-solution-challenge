@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_challenge/models/event_model.dart';
+import 'package:gdsc_solution_challenge/screens/event_detail_screen.dart';
 import 'package:glass_kit/glass_kit.dart';
 
 class ForYouEventCard extends StatelessWidget {
@@ -19,7 +20,10 @@ class ForYouEventCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(20),
       borderWidth: 2,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, EventDetailScreen.routeName,
+              arguments: event);
+        },
         child: Container(
           margin: const EdgeInsets.only(top: 2),
           child: Column(
