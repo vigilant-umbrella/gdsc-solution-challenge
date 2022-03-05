@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
 import 'package:gdsc_solution_challenge/widgets/event_view.dart';
+import 'package:gdsc_solution_challenge/widgets/home_view.dart';
 import 'package:gdsc_solution_challenge/widgets/new_event.dart';
 import 'package:gdsc_solution_challenge/widgets/glassy_bottom_navbar.dart';
 import 'package:provider/provider.dart';
 
-class EventsScreen extends StatefulWidget {
+class MainScreen extends StatefulWidget {
   // route name
   static const routeName = '/';
 
   // constructor
-  const EventsScreen({Key? key}) : super(key: key);
+  const MainScreen({Key? key}) : super(key: key);
 
   @override
-  State<EventsScreen> createState() => _EventsScreenState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
-class _EventsScreenState extends State<EventsScreen> {
+class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
   late PageController _pageController;
 
@@ -68,9 +69,7 @@ class _EventsScreenState extends State<EventsScreen> {
             setState(() => _currentIndex = index);
           },
           children: const <Widget>[
-            Center(
-              child: Text('Home'),
-            ),
+            HomeView(),
             EventView(),
             Center(
               child: Text('Settings'),
