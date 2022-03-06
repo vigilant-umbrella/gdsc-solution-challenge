@@ -1,16 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gdsc_solution_challenge/models/event_model.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
 import 'package:glass_kit/glass_kit.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-class EventDetailScreen extends StatelessWidget {
+class EventDetailScreen extends StatefulWidget {
   // route name
   static const routeName = '/event-detail';
 
   // constructor
   const EventDetailScreen({Key? key}) : super(key: key);
+
+  @override
+  State<EventDetailScreen> createState() => _EventDetailScreenState();
+}
+
+class _EventDetailScreenState extends State<EventDetailScreen> {
+  // variables
+  late String _mapStyle;
+
+  @override
+  void initState() {
+    super.initState();
+    rootBundle.loadString('assets/map_style.json').then((string) {
+      _mapStyle = string;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,8 +176,20 @@ class EventDetailScreen extends StatelessWidget {
                 },
               ),
             ),
-            body: Center(
-              child: Text(event.eventTitle),
+            body: GoogleMap(
+              initialCameraPosition: CameraPosition(
+                target: LatLng(event.location.lat, event.location.lng),
+                zoom: 15,
+              ),
+              onMapCreated: (controller) {
+                controller.setMapStyle(_mapStyle);
+              },
+              markers: {
+                Marker(
+                  markerId: MarkerId(event.eventTitle),
+                  position: LatLng(event.location.lat, event.location.lng),
+                ),
+              },
             ),
           )),
     );
