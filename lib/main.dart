@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_challenge/providers/event_provider.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
+import 'package:gdsc_solution_challenge/providers/user_provider.dart';
 import 'package:gdsc_solution_challenge/screens/event_detail_screen.dart';
-import 'package:gdsc_solution_challenge/screens/events_screen.dart';
+import 'package:gdsc_solution_challenge/screens/main_screen.dart';
 import 'package:gdsc_solution_challenge/screens/new_event_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +26,9 @@ class AppWithProviderSetup extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => Events(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => Users(),
+        ),
       ],
       child: const MyApp(),
     );
@@ -41,10 +45,9 @@ class MyApp extends StatelessWidget {
       title: 'App',
       theme: context.watch<Themes>().currentTheme,
       debugShowCheckedModeBanner: false,
-
-      initialRoute: EventsScreen.routeName,
+      initialRoute: MainScreen.routeName,
       routes: {
-        EventsScreen.routeName: (_) => const EventsScreen(),
+        MainScreen.routeName: (_) => const MainScreen(),
         NewEventScreen.routeName: (_) => const NewEventScreen(),
         EventDetailScreen.routeName: (_) => const EventDetailScreen(),
       },

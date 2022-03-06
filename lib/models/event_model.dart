@@ -2,6 +2,7 @@ import 'package:gdsc_solution_challenge/models/location_model.dart';
 
 /// Sample Event
 /// {
+///    "eventId": "e1",
 ///    "event_title": "Waste Recycling",
 ///    "date": "3/3/2022",
 ///    "starts_at": "10:00",
@@ -12,7 +13,6 @@ import 'package:gdsc_solution_challenge/models/location_model.dart';
 ///    "image": "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
 ///    "organizerId": "o1",
 ///    "organizerName": "Sandy",
-///    "eventId": "e1",
 ///    "location": {
 ///      "lat": 15.2993,
 ///      "lng": 74.124
@@ -79,6 +79,7 @@ class Event {
     data['organizerId'] = organizerId;
     data['organizerName'] = organizerName;
     data['location'] = location.toJson();
+
     return data;
   }
 }
