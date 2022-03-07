@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gdsc_solution_challenge/models/event_model.dart';
@@ -6,6 +8,7 @@ import 'package:glass_kit/glass_kit.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EventDetailScreen extends StatefulWidget {
   // route name
@@ -30,6 +33,11 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
     });
   }
 
+  void _navigateTo(double lat, double lng) async {
+    var uri = Uri.parse("google.navigation:q=$lat,$lng&mode=d");
+    await launch(uri.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     final panelOpenHeight = MediaQuery.of(context).size.height * 0.8;
@@ -42,6 +50,13 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
       child: Scaffold(
           appBar: AppBar(
             title: Text(event.eventTitle),
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              _navigateTo(event.location.lat, event.location.lng);
+            },
+            child: const Icon(Icons.navigation),
           ),
           body: SlidingUpPanel(
             maxHeight: panelOpenHeight,

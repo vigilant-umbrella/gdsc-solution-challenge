@@ -40,6 +40,7 @@ dependencies:
   intl: ^0.17.0
   states_rebuilder: ^6.0.0
   google_maps_flutter: ^2.1.2
+  url_launcher: ^6.0.20
 
 dev_dependencies:
   flutter_test:
