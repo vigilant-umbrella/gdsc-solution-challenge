@@ -18,6 +18,23 @@
   "upcomingEvents": [
     {
       "eventTitle": "Waste Recycling",
+      "date": "3/5/2022",
+      "startsAt": "10:00",
+      "venue": "Colva Beach, Goa",
+      "type": "Cleanup Drive",
+      "tags": ["Waste Managament", "Beach", "Goa"],
+      "description": "The people of Goa would like to launch a clean-up drive of the trash that has accumulated in our lovely Colva Beach. Come help us in our efforts to keep Goa clean!",
+      "image": "https://images.unsplash.com/photo-1645474906529-7694e00d9319?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2792&q=80",
+      "organizerId": "o1",
+      "organizerName": "Sandy",
+      "eventId": "e1",
+      "location": {
+        "lat": 15.2993,
+        "lng": 74.124
+      }
+    },
+    {
+      "eventTitle": "Waste Recycling",
       "date": "3/3/2022",
       "startsAt": "10:00",
       "venue": "Colva Beach, Goa",
@@ -34,15 +51,117 @@
       }
     },
     {
-      "eventTitle": "Birds Preservation",
+      "eventTitle": "Waste Recycling",
       "date": "3/3/2022",
+      "startsAt": "10:00",
+      "venue": "Colva Beach, Goa",
+      "type": "Cleanup Drive",
+      "tags": ["Waste Managament", "Beach", "Goa"],
+      "description": "The people of Goa would like to launch a clean-up drive of the trash that has accumulated in our lovely Colva Beach. Come help us in our efforts to keep Goa clean!",
+      "image": "https://images.unsplash.com/photo-1645474906529-7694e00d9319?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2792&q=80",
+      "organizerId": "o1",
+      "organizerName": "Sandy",
+      "eventId": "e1",
+      "location": {
+        "lat": 15.2993,
+        "lng": 74.124
+      }
+    },
+    {
+      "eventTitle": "Waste Recycling",
+      "date": "3/3/2022",
+      "startsAt": "10:00",
+      "venue": "Colva Beach, Goa",
+      "type": "Cleanup Drive",
+      "tags": ["Waste Managament", "Beach", "Goa"],
+      "description": "The people of Goa would like to launch a clean-up drive of the trash that has accumulated in our lovely Colva Beach. Come help us in our efforts to keep Goa clean!",
+      "image": "https://images.unsplash.com/photo-1645474906529-7694e00d9319?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2792&q=80",
+      "organizerId": "o1",
+      "organizerName": "Sandy",
+      "eventId": "e1",
+      "location": {
+        "lat": 15.2993,
+        "lng": 74.124
+      }
+    },
+    {
+      "eventTitle": "Waste Recycling",
+      "date": "3/3/2022",
+      "startsAt": "10:00",
+      "venue": "Colva Beach, Goa",
+      "type": "Cleanup Drive",
+      "tags": ["Waste Managament", "Beach", "Goa"],
+      "description": "The people of Goa would like to launch a clean-up drive of the trash that has accumulated in our lovely Colva Beach. Come help us in our efforts to keep Goa clean!",
+      "image": "https://images.unsplash.com/photo-1645474906529-7694e00d9319?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2792&q=80",
+      "organizerId": "o1",
+      "organizerName": "Sandy",
+      "eventId": "e1",
+      "location": {
+        "lat": 15.2993,
+        "lng": 74.124
+      }
+    },
+    {
+      "eventTitle": "Waste Recycling",
+      "date": "3/3/2022",
+      "startsAt": "10:00",
+      "venue": "Colva Beach, Goa",
+      "type": "Cleanup Drive",
+      "tags": ["Waste Managament", "Beach", "Goa"],
+      "description": "The people of Goa would like to launch a clean-up drive of the trash that has accumulated in our lovely Colva Beach. Come help us in our efforts to keep Goa clean!",
+      "image": "https://images.unsplash.com/photo-1645474906529-7694e00d9319?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2792&q=80",
+      "organizerId": "o1",
+      "organizerName": "Sandy",
+      "eventId": "e1",
+      "location": {
+        "lat": 15.2993,
+        "lng": 74.124
+      }
+    },
+    {
+      "eventTitle": "Waste Recycling",
+      "date": "3/3/2022",
+      "startsAt": "10:00",
+      "venue": "Colva Beach, Goa",
+      "type": "Cleanup Drive",
+      "tags": ["Waste Managament", "Beach", "Goa"],
+      "description": "The people of Goa would like to launch a clean-up drive of the trash that has accumulated in our lovely Colva Beach. Come help us in our efforts to keep Goa clean!",
+      "image": "https://images.unsplash.com/photo-1645474906529-7694e00d9319?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2792&q=80",
+      "organizerId": "o1",
+      "organizerName": "Sandy",
+      "eventId": "e1",
+      "location": {
+        "lat": 15.2993,
+        "lng": 74.124
+      }
+    },
+    {
+      "eventTitle": "Waste Recycling",
+      "date": "3/3/2022",
+      "startsAt": "10:00",
+      "venue": "Colva Beach, Goa",
+      "type": "Cleanup Drive",
+      "tags": ["Waste Managament", "Beach", "Goa"],
+      "description": "The people of Goa would like to launch a clean-up drive of the trash that has accumulated in our lovely Colva Beach. Come help us in our efforts to keep Goa clean!",
+      "image": "https://images.unsplash.com/photo-1645474906529-7694e00d9319?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2792&q=80",
+      "organizerId": "u1",
+      "organizerName": "Sandy",
+      "eventId": "e1",
+      "location": {
+        "lat": 15.2993,
+        "lng": 74.124
+      }
+    },
+    {
+      "eventTitle": "Birds Preservation",
+      "date": "3/10/2022",
       "startsAt": "10:00",
       "venue": "Colva Beach, Goa",
       "type": "Cleanup Drive",
       "tags": ["Nature", "Beach", "Goa"],
       "description": "The people of Goa would like to launch a clean-up drive of the trash that has accumulated in our lovely Colva Beach. Come help us in our efforts to keep Goa clean!",
       "image": "https://images.unsplash.com/photo-1645508420370-09b85d6fb924?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3669&q=80",
-      "organizerId": "o2",
+      "organizerId": "u1",
       "organizerName": "Sandy",
       "eventId": "e2",
       "location": {
