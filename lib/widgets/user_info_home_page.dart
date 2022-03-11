@@ -13,7 +13,11 @@ class UserInfo extends StatelessWidget {
       future: context.read<Users>().fetchAndSetUser(),
       builder: (ctx, dataSnapshot) {
         if (dataSnapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const SizedBox(
+            child: Center(child: CircularProgressIndicator()),
+            // trying fixing layout shifting issue
+            height: 195,
+          );
         }
         if (dataSnapshot.error != null) {
           return const Center(child: Text('An error occurred!'));
@@ -24,7 +28,7 @@ class UserInfo extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(top: 2),
                 child: Padding(
-                  padding: const EdgeInsets.all(25),
+                  padding: const EdgeInsets.all(10),
                   child: Row(
                     children: [
                       Container(
@@ -43,35 +47,32 @@ class UserInfo extends StatelessWidget {
                       const SizedBox(
                         width: 25,
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            userData.user.userName,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                      Text(
+                        userData.user.userName,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ],
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
               ),
               Column(
                 children: [
                   Text(
                     userData.user.points.toString(),
                     style: const TextStyle(
-                      fontSize: 35,
+                      color: Colors.white,
+                      fontSize: 40,
+                      letterSpacing: 3,
+                    ),
+                  ),
+                  const Text(
+                    'points',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const Text('points'),
                 ],
               ),
             ],
