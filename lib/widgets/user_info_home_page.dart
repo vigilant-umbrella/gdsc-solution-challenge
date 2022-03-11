@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_challenge/models/user_model.dart';
 import 'package:gdsc_solution_challenge/providers/user_provider.dart';
+import 'package:gdsc_solution_challenge/screens/badges_screen.dart';
 import 'package:gdsc_solution_challenge/screens/user_events_dashboard.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:provider/provider.dart';
@@ -193,7 +194,8 @@ class HomeViewEventsBadgesCard extends StatelessWidget {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () =>
+                Navigator.of(context).pushNamed(BadgesScreen.routeName),
             child: const Text(
               "All Badges",
               style: TextStyle(

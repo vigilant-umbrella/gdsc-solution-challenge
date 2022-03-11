@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
+import 'package:gdsc_solution_challenge/widgets/multiple_select_drop_down.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:intl/intl.dart';
-import 'package:gdsc_solution_challenge/widgets/multiple_select_drop_down.dart';
 import 'package:provider/provider.dart';
 
 class NewEventScreen extends StatefulWidget {
