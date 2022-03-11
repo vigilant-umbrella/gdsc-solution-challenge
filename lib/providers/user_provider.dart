@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gdsc_solution_challenge/models/event_model.dart';
 import 'package:gdsc_solution_challenge/models/user_model.dart';
 import 'package:gdsc_solution_challenge/utility/wait_timer.dart';
+import 'package:intl/intl.dart';
 
-class Users with ChangeNotifier {
+class UserProvider with ChangeNotifier {
   late User _user;
 
   User get user {
@@ -27,5 +29,33 @@ class Users with ChangeNotifier {
     notifyListeners();
 
     return;
+  }
+
+  List<Event> get getEventsAttending {
+    final List<Event> event = _user.upcomingEvents
+        .where((event) => event.organizerId != _user.userId)
+        .toList();
+
+    event.sort((a, b) => DateFormat('dd/MM/yyyy')
+            .parse(a.date)
+            .isBefore(DateFormat('dd/MM/yyyy').parse(b.date))
+        ? 1
+        : -1);
+
+    return event;
+  }
+
+  List<Event> get getEventsOrganising {
+    final List<Event> event = _user.upcomingEvents
+        .where((event) => event.organizerId == _user.userId)
+        .toList();
+
+    event.sort((a, b) => DateFormat('dd/MM/yyyy')
+            .parse(a.date)
+            .isBefore(DateFormat('dd/MM/yyyy').parse(b.date))
+        ? 1
+        : -1);
+
+    return event;
   }
 }

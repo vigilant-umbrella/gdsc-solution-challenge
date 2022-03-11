@@ -1,3 +1,5 @@
+import 'package:gdsc_solution_challenge/models/event_model.dart';
+
 /// Sample User
 /// {
 ///    "userId": "u1",
@@ -15,7 +17,7 @@ class User {
   late String image;
   late int eventsAttended;
   late List<Map> badges;
-  late List<Map> upcomingEvents;
+  late List<Event> upcomingEvents;
 
   User({
     required this.userId,
@@ -36,7 +38,9 @@ class User {
     image = json['image'];
     eventsAttended = json['eventsAttended'];
     badges = json['badges'].cast<Map>();
-    upcomingEvents = json['upcomingEvents'].cast<Map>();
+    upcomingEvents = (json['upcomingEvents'] as List)
+        .map((event) => Event.fromJson(event))
+        .toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -48,7 +52,8 @@ class User {
     data['image'] = image;
     data['eventsAttended'] = eventsAttended;
     data['badges'] = badges;
-    data['upcomingEvents'] = upcomingEvents;
+    data['upcomingEvents'] =
+        upcomingEvents.map((event) => event.toJson()).toList();
 
     return data;
   }

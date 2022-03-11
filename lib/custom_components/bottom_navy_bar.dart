@@ -129,7 +129,7 @@ class _ItemWidget extends StatelessWidget {
       container: true,
       selected: isSelected,
       child: AnimatedContainer(
-        width: isSelected ? 110 : 50,
+        width: isSelected ? 120 : 50,
         height: double.maxFinite,
         duration: animationDuration,
         curve: curve,
@@ -141,7 +141,7 @@ class _ItemWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           physics: const NeverScrollableScrollPhysics(),
           child: Container(
-            width: isSelected ? 110 : 50,
+            width: isSelected ? 120 : 50,
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Row(
               mainAxisSize: MainAxisSize.max,

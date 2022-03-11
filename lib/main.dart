@@ -5,6 +5,7 @@ import 'package:gdsc_solution_challenge/providers/user_provider.dart';
 import 'package:gdsc_solution_challenge/screens/event_detail_screen.dart';
 import 'package:gdsc_solution_challenge/screens/main_screen.dart';
 import 'package:gdsc_solution_challenge/screens/new_event_screen.dart';
+import 'package:gdsc_solution_challenge/screens/user_events_dashboard.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -27,7 +28,7 @@ class AppWithProviderSetup extends StatelessWidget {
           create: (_) => Events(),
         ),
         ChangeNotifierProvider(
-          create: (_) => Users(),
+          create: (_) => UserProvider(),
         ),
       ],
       child: const MyApp(),
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
         MainScreen.routeName: (_) => const MainScreen(),
         NewEventScreen.routeName: (_) => const NewEventScreen(),
         EventDetailScreen.routeName: (_) => const EventDetailScreen(),
+        UserEventsDashboard.routeName: (_) => const UserEventsDashboard(),
       },
     );
   }
