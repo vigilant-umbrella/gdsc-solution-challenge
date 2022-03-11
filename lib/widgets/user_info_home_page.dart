@@ -126,7 +126,7 @@ class HomeViewEventsAttendedCountCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HomeViewGlassCard(
-      height: (constraints.maxHeight * 0.5) - 5,
+      height: (constraints.maxHeight * 0.4) - 5,
       width: (constraints.maxWidth * 0.5) - 5,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -165,7 +165,7 @@ class HomeViewEventsBadgesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HomeViewGlassCard(
-      height: (constraints.maxHeight * 0.5) - 5,
+      height: (constraints.maxHeight * 0.6) - 5,
       width: (constraints.maxWidth * 0.5) - 5,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -183,7 +183,8 @@ class HomeViewEventsBadgesCard extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(18)),
             child: Image.network(
               userData.user.badges[0]['badgeImage'],
-              height: constraints.maxHeight * 0.2,
+              height: constraints.maxHeight * 0.25,
+              width: constraints.maxWidth * 0.4,
               fit: BoxFit.cover,
             ),
           ),
