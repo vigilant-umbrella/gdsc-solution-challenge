@@ -184,7 +184,7 @@ class HomeViewEventsBadgesCard extends StatelessWidget {
             child: Image.network(
               userData.user.badges[0]['badgeImage'],
               height: constraints.maxHeight * 0.2,
-              fit: BoxFit.scaleDown,
+              fit: BoxFit.cover,
             ),
           ),
           ElevatedButton(
@@ -235,7 +235,7 @@ class HomeViewEventsViewCard extends StatelessWidget {
             child: Image.network(
               userData.user.upcomingEvents[0]['image'],
               height: constraints.maxHeight * 0.3,
-              fit: BoxFit.scaleDown,
+              fit: BoxFit.cover,
             ),
           ),
           Align(
