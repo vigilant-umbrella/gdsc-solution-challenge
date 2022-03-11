@@ -168,7 +168,7 @@ class HomeViewEventsBadgesCard extends StatelessWidget {
       height: (constraints.maxHeight * 0.5) - 5,
       width: (constraints.maxWidth * 0.5) - 5,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const FittedBox(
             child: Text(
@@ -197,6 +197,11 @@ class HomeViewEventsBadgesCard extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(
+                Colors.black,
+              ),
+            ),
           ),
         ],
       ),
@@ -219,7 +224,7 @@ class HomeViewEventsViewCard extends StatelessWidget {
       height: (constraints.maxHeight),
       width: (constraints.maxWidth * 0.5) - 5,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const FittedBox(
             child: Text(
@@ -289,6 +294,11 @@ class HomeViewEventsViewCard extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
+              ),
+            ),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(
+                Colors.black,
               ),
             ),
           ),
