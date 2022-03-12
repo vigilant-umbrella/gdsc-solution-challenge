@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gdsc_solution_challenge/providers/event_provider.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
 import 'package:gdsc_solution_challenge/providers/user_provider.dart';
+import 'package:gdsc_solution_challenge/screens/attending_event_detail_screen.dart';
 import 'package:gdsc_solution_challenge/screens/badges_screen.dart';
 import 'package:gdsc_solution_challenge/screens/event_detail_screen.dart';
 import 'package:gdsc_solution_challenge/screens/main_screen.dart';
@@ -54,6 +55,8 @@ class MyApp extends StatelessWidget {
         EventDetailScreen.routeName: (_) => const EventDetailScreen(),
         UserEventsDashboard.routeName: (_) => const UserEventsDashboard(),
         BadgesScreen.routeName: (_) => const BadgesScreen(),
+        AttendingEventDetailScreen.routeName: (_) =>
+            const AttendingEventDetailScreen(),
       },
     );
   }

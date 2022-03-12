@@ -5,6 +5,7 @@ import 'package:gdsc_solution_challenge/custom_components/bottom_navy_bar.dart';
 import 'package:gdsc_solution_challenge/models/event_model.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
 import 'package:gdsc_solution_challenge/providers/user_provider.dart';
+import 'package:gdsc_solution_challenge/screens/attending_event_detail_screen.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -159,7 +160,10 @@ class UserEventsList extends StatelessWidget {
     return ListView.builder(
       itemCount: events.length,
       itemBuilder: (ctx, i) {
-        return UserEventsCard(events[i]);
+        return UserEventsCard(
+          event: events[i],
+          isAttendingEvents: isAttendingEvents,
+        );
       },
     );
   }
@@ -168,7 +172,13 @@ class UserEventsList extends StatelessWidget {
 class UserEventsCard extends StatelessWidget {
   final Event event;
 
-  const UserEventsCard(this.event, {Key? key}) : super(key: key);
+  final bool isAttendingEvents;
+
+  const UserEventsCard({
+    Key? key,
+    required this.event,
+    required this.isAttendingEvents,
+  }) : super(key: key);
 
   bool _isFutureEvent() {
     DateTime now = DateTime.now();
@@ -189,7 +199,12 @@ class UserEventsCard extends StatelessWidget {
           child: LayoutBuilder(
             builder: (_, constraints) {
               return InkWell(
-                onTap: () {},
+                onTap: isAttendingEvents
+                    ? () => Navigator.of(context).pushNamed(
+                          AttendingEventDetailScreen.routeName,
+                          arguments: event,
+                        )
+                    : null,
                 child: Container(
                   margin: const EdgeInsets.only(top: 2),
                   child: Column(
