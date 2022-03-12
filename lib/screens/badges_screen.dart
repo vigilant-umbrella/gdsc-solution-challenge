@@ -56,9 +56,13 @@ class _BadgesScreenState extends State<BadgesScreen> {
                     ),
                     child: Column(
                       children: [
-                        Image.network(
-                          badge['badgeImage'],
-                          fit: BoxFit.cover,
+                        ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(18)),
+                          child: Image.network(
+                            badge['badgeImage'],
+                            fit: BoxFit.cover,
+                          ),
                         ),
                         Text(badge['badgeInfo'],
                             style: const TextStyle(
