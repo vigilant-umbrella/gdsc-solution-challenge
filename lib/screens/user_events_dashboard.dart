@@ -6,6 +6,7 @@ import 'package:gdsc_solution_challenge/models/event_model.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
 import 'package:gdsc_solution_challenge/providers/user_provider.dart';
 import 'package:gdsc_solution_challenge/screens/attending_event_detail_screen.dart';
+import 'package:gdsc_solution_challenge/screens/organising_event_detail_screen.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -204,7 +205,10 @@ class UserEventsCard extends StatelessWidget {
                           AttendingEventDetailScreen.routeName,
                           arguments: event,
                         )
-                    : null,
+                    : () => Navigator.of(context).pushNamed(
+                          OrganisingEventDetailScreen.routeName,
+                          arguments: event,
+                        ),
                 child: Container(
                   margin: const EdgeInsets.only(top: 2),
                   child: Column(
