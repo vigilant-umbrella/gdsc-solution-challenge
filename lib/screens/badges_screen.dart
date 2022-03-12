@@ -55,10 +55,12 @@ class _BadgesScreenState extends State<BadgesScreen> {
                       ],
                     ),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(18)),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(20),
+                          ),
                           child: Image.network(
                             badge['badgeImage'],
                             fit: BoxFit.cover,
