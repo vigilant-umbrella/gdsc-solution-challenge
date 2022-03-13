@@ -41,6 +41,10 @@ dependencies:
   states_rebuilder: ^6.0.0
   google_maps_flutter: ^2.1.2
   url_launcher: ^6.0.20
+  firebase_core: ^1.13.1
+  google_sign_in: ^5.2.4
+  firebase_auth: ^3.3.10
+  cloud_firestore: ^3.1.10
 
 dev_dependencies:
   flutter_test:

@@ -26,3 +26,6 @@ doc/api/
 
 # google maps sdk
 android/app/src/main/AndroidManifest.xml
+
+# firebase
+android/app/google-services.json
