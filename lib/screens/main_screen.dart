@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
+import 'package:gdsc_solution_challenge/screens/login_screen.dart';
+import 'package:gdsc_solution_challenge/services/auth_service.dart';
 import 'package:gdsc_solution_challenge/widgets/event_view.dart';
 import 'package:gdsc_solution_challenge/widgets/home_view.dart';
+import 'package:gdsc_solution_challenge/widgets/loader.dart';
 import 'package:gdsc_solution_challenge/widgets/new_event.dart';
 import 'package:gdsc_solution_challenge/widgets/glassy_bottom_navbar.dart';
 import 'package:provider/provider.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends StatelessWidget {
   // route name
   static const routeName = '/';
 
@@ -14,10 +17,34 @@ class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: AuthService().userStream,
+      builder: (ctx, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const LoadingScreen();
+        } else if (snapshot.hasError) {
+          return const Center(
+            child: Text('Some Error Occured'),
+          );
+        } else if (snapshot.hasData) {
+          return const MainScreenLoggedIn();
+        } else {
+          return const LoginScreen();
+        }
+      },
+    );
+  }
 }
 
-class _MainScreenState extends State<MainScreen> {
+class MainScreenLoggedIn extends StatefulWidget {
+  const MainScreenLoggedIn({Key? key}) : super(key: key);
+
+  @override
+  State<MainScreenLoggedIn> createState() => _MainScreenLoggedInState();
+}
+
+class _MainScreenLoggedInState extends State<MainScreenLoggedIn> {
   int _currentIndex = 0;
   late PageController _pageController;
 
@@ -68,11 +95,14 @@ class _MainScreenState extends State<MainScreen> {
           onPageChanged: (index) {
             setState(() => _currentIndex = index);
           },
-          children: const <Widget>[
-            HomeView(),
-            EventView(),
+          children: <Widget>[
+            const HomeView(),
+            const EventView(),
             Center(
-              child: Text('Settings'),
+              child: ElevatedButton(
+                onPressed: () => AuthService().signOut(),
+                child: const Text('Sign Out'),
+              ),
             ),
           ],
         ),
