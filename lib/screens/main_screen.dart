@@ -19,7 +19,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: AuthService().userStream,
+      stream: authService.userStream,
       builder: (ctx, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const LoadingScreen();
@@ -100,7 +100,7 @@ class _MainScreenLoggedInState extends State<MainScreenLoggedIn> {
             const EventView(),
             Center(
               child: ElevatedButton(
-                onPressed: () => AuthService().signOut(),
+                onPressed: () => authService.signOut(),
                 child: const Text('Sign Out'),
               ),
             ),
