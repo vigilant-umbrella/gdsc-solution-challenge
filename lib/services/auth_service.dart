@@ -38,5 +38,3 @@ class AuthService {
     await FirebaseAuth.instance.signOut();
   }
 }
-
-final authService = AuthService();
