@@ -5,24 +5,52 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_challenge/models/location_model.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
+import 'package:gdsc_solution_challenge/screens/login_screen.dart';
 import 'package:gdsc_solution_challenge/screens/select_on_map_screen.dart';
+import 'package:gdsc_solution_challenge/services/auth_service.dart';
+import 'package:gdsc_solution_challenge/widgets/loader.dart';
 import 'package:gdsc_solution_challenge/widgets/multiple_select_drop_down.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class NewEventScreen extends StatefulWidget {
-  const NewEventScreen({Key? key}) : super(key: key);
-
+class NewEventScreen extends StatelessWidget {
   // route name
   static const routeName = '/new_event_form';
 
+  // constructor
+  const NewEventScreen({Key? key}) : super(key: key);
+
   @override
-  State<NewEventScreen> createState() => _NewEventScreenState();
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: AuthService().userStream,
+      builder: (ctx, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const LoadingScreen();
+        } else if (snapshot.hasError) {
+          return const Center(
+            child: Text('Some Error Occured'),
+          );
+        } else if (snapshot.hasData) {
+          return const NewEventScreenLoggedIn();
+        } else {
+          return const LoginScreen();
+        }
+      },
+    );
+  }
 }
 
-class _NewEventScreenState extends State<NewEventScreen> {
+class NewEventScreenLoggedIn extends StatefulWidget {
+  const NewEventScreenLoggedIn({Key? key}) : super(key: key);
+
+  @override
+  State<NewEventScreenLoggedIn> createState() => _NewEventScreenLoggedInState();
+}
+
+class _NewEventScreenLoggedInState extends State<NewEventScreenLoggedIn> {
   final _formKey = GlobalKey<FormState>();
 
   final _eventNameController = TextEditingController();
