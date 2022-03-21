@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
               title: 'App',
               theme: context.watch<Themes>().currentTheme,
               debugShowCheckedModeBanner: false,
-              initialRoute: NewEventScreen.routeName,
+              initialRoute: MainScreen.routeName,
               routes: {
                 LoginScreen.routeName: (_) => const LoginScreen(),
                 MainScreen.routeName: (_) => const MainScreen(),
