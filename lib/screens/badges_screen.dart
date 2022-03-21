@@ -1,20 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
 import 'package:gdsc_solution_challenge/providers/user_provider.dart';
+import 'package:gdsc_solution_challenge/screens/login_screen.dart';
+import 'package:gdsc_solution_challenge/services/auth_service.dart';
+import 'package:gdsc_solution_challenge/widgets/loader.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:provider/provider.dart';
 
-class BadgesScreen extends StatefulWidget {
-  const BadgesScreen({Key? key}) : super(key: key);
-
+class BadgesScreen extends StatelessWidget {
   // route name
   static const routeName = '/badges';
 
+  // constructor
+  const BadgesScreen({Key? key}) : super(key: key);
+
   @override
-  State<BadgesScreen> createState() => _BadgesScreenState();
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: AuthService().userStream,
+      builder: (ctx, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const LoadingScreen();
+        } else if (snapshot.hasError) {
+          return const Center(
+            child: Text('Some Error Occured'),
+          );
+        } else if (snapshot.hasData) {
+          return const BadgesScreenLoggedIn();
+        } else {
+          return const LoginScreen();
+        }
+      },
+    );
+  }
 }
 
-class _BadgesScreenState extends State<BadgesScreen> {
+class BadgesScreenLoggedIn extends StatefulWidget {
+  const BadgesScreenLoggedIn({Key? key}) : super(key: key);
+
+  @override
+  State<BadgesScreenLoggedIn> createState() => _BadgesScreenLoggedInState();
+}
+
+class _BadgesScreenLoggedInState extends State<BadgesScreenLoggedIn> {
   @override
   Widget build(BuildContext context) {
     final userData = context.watch<UserProvider>();

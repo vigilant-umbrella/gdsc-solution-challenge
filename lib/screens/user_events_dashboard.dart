@@ -6,21 +6,52 @@ import 'package:gdsc_solution_challenge/models/event_model.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
 import 'package:gdsc_solution_challenge/providers/user_provider.dart';
 import 'package:gdsc_solution_challenge/screens/attending_event_detail_screen.dart';
+import 'package:gdsc_solution_challenge/screens/login_screen.dart';
 import 'package:gdsc_solution_challenge/screens/organising_event_detail_screen.dart';
+import 'package:gdsc_solution_challenge/services/auth_service.dart';
+import 'package:gdsc_solution_challenge/widgets/loader.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
-class UserEventsDashboard extends StatefulWidget {
+class UserEventsDashboard extends StatelessWidget {
+  // route name
   static const routeName = '/user-events-dashboard';
 
+  // constructor
   const UserEventsDashboard({Key? key}) : super(key: key);
 
   @override
-  State<UserEventsDashboard> createState() => _UserEventsDashboardState();
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: AuthService().userStream,
+      builder: (ctx, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const LoadingScreen();
+        } else if (snapshot.hasError) {
+          return const Center(
+            child: Text('Some Error Occured'),
+          );
+        } else if (snapshot.hasData) {
+          return const UserEventsDashboardLoggedIn();
+        } else {
+          return const LoginScreen();
+        }
+      },
+    );
+  }
 }
 
-class _UserEventsDashboardState extends State<UserEventsDashboard> {
+class UserEventsDashboardLoggedIn extends StatefulWidget {
+  const UserEventsDashboardLoggedIn({Key? key}) : super(key: key);
+
+  @override
+  State<UserEventsDashboardLoggedIn> createState() =>
+      _UserEventsDashboardLoggedInState();
+}
+
+class _UserEventsDashboardLoggedInState
+    extends State<UserEventsDashboardLoggedIn> {
   int _currentIndex = 0;
   late PageController _pageController;
 

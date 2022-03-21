@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gdsc_solution_challenge/models/event_model.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
+import 'package:gdsc_solution_challenge/screens/login_screen.dart';
+import 'package:gdsc_solution_challenge/services/auth_service.dart';
+import 'package:gdsc_solution_challenge/widgets/loader.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class EventDetailScreen extends StatefulWidget {
+class EventDetailScreen extends StatelessWidget {
   // route name
   static const routeName = '/event-detail';
 
@@ -16,10 +19,36 @@ class EventDetailScreen extends StatefulWidget {
   const EventDetailScreen({Key? key}) : super(key: key);
 
   @override
-  State<EventDetailScreen> createState() => _EventDetailScreenState();
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: AuthService().userStream,
+      builder: (ctx, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const LoadingScreen();
+        } else if (snapshot.hasError) {
+          return const Center(
+            child: Text('Some Error Occured'),
+          );
+        } else if (snapshot.hasData) {
+          return const EventDetailScreenLoggedIn();
+        } else {
+          return const LoginScreen();
+        }
+      },
+    );
+  }
 }
 
-class _EventDetailScreenState extends State<EventDetailScreen> {
+class EventDetailScreenLoggedIn extends StatefulWidget {
+  // constructor
+  const EventDetailScreenLoggedIn({Key? key}) : super(key: key);
+
+  @override
+  State<EventDetailScreenLoggedIn> createState() =>
+      _EventDetailScreenLoggedInState();
+}
+
+class _EventDetailScreenLoggedInState extends State<EventDetailScreenLoggedIn> {
   // variables
   late String _mapStyle;
 

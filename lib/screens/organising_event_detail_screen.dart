@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gdsc_solution_challenge/models/event_model.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
+import 'package:gdsc_solution_challenge/screens/login_screen.dart';
+import 'package:gdsc_solution_challenge/services/auth_service.dart';
+import 'package:gdsc_solution_challenge/widgets/loader.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
@@ -9,7 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class OrganisingEventDetailScreen extends StatefulWidget {
+class OrganisingEventDetailScreen extends StatelessWidget {
   // route name
   static const routeName = '/user-events-dashboard/organising-event-detail';
 
@@ -17,12 +20,37 @@ class OrganisingEventDetailScreen extends StatefulWidget {
   const OrganisingEventDetailScreen({Key? key}) : super(key: key);
 
   @override
-  State<OrganisingEventDetailScreen> createState() =>
-      _OrganisingEventDetailScreenState();
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: AuthService().userStream,
+      builder: (ctx, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const LoadingScreen();
+        } else if (snapshot.hasError) {
+          return const Center(
+            child: Text('Some Error Occured'),
+          );
+        } else if (snapshot.hasData) {
+          return const OrganisingEventDetailScreenLoggedIn();
+        } else {
+          return const LoginScreen();
+        }
+      },
+    );
+  }
 }
 
-class _OrganisingEventDetailScreenState
-    extends State<OrganisingEventDetailScreen> {
+class OrganisingEventDetailScreenLoggedIn extends StatefulWidget {
+  // constructor
+  const OrganisingEventDetailScreenLoggedIn({Key? key}) : super(key: key);
+
+  @override
+  State<OrganisingEventDetailScreenLoggedIn> createState() =>
+      _OrganisingEventDetailScreenLoggedInState();
+}
+
+class _OrganisingEventDetailScreenLoggedInState
+    extends State<OrganisingEventDetailScreenLoggedIn> {
   // variables
   late String _mapStyle;
 
