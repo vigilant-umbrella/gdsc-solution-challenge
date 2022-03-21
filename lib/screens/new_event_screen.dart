@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gdsc_solution_challenge/models/location_model.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
+import 'package:gdsc_solution_challenge/screens/select_on_map_screen.dart';
 import 'package:gdsc_solution_challenge/widgets/multiple_select_drop_down.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:image_picker/image_picker.dart';
@@ -30,10 +31,24 @@ class _NewEventScreenState extends State<NewEventScreen> {
   List<String> _eventTags = [];
 
   // ignore: unused_field
+  DateTime? _eventDate;
+
+  // ignore: unused_field
+  TimeOfDay? _eventStartTime;
+
+  // ignore: unused_field
   File? _pickedImage;
 
   // ignore: unused_field
   Location? _pickedLocation;
+
+  void _selectEventDate(DateTime date) {
+    _eventDate = date;
+  }
+
+  void _selectStartTime(TimeOfDay time) {
+    _eventStartTime = time;
+  }
 
   void getEventTags(List<String> tags) {
     _eventTags = tags;
@@ -45,6 +60,32 @@ class _NewEventScreenState extends State<NewEventScreen> {
 
   void _selectLocation(Location location) {
     _pickedLocation = location;
+  }
+
+  void _submit() {
+    if (_formKey.currentState == null) {
+      return;
+    }
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    _formKey.currentState!.save();
+
+    // create a date object from the date and time
+    final date = DateTime(
+      _eventDate!.year,
+      _eventDate!.month,
+      _eventDate!.day,
+      _eventStartTime!.hour,
+      _eventStartTime!.minute,
+    );
+
+    print(_eventNameController.text);
+    print(_eventDescriptionController.text);
+    print(_eventTags);
+    print(DateFormat('yyyy-MM-dd HH:mm').format(date));
+    print(_pickedImage);
+    print(_pickedLocation);
   }
 
   @override
@@ -66,11 +107,7 @@ class _NewEventScreenState extends State<NewEventScreen> {
           actions: [
             IconButton(
               icon: const Icon(Icons.check),
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  // do something
-                }
-              },
+              onPressed: _submit,
             ),
           ],
         ),
@@ -111,9 +148,12 @@ class _NewEventScreenState extends State<NewEventScreen> {
                           children: [
                             GlassMorphicDateAndTime(
                               width: (constraints.maxWidth / 2) - 5,
+                              onDateSelected: _selectEventDate,
                             ),
                             GlassMorphicTimePicker(
-                                width: (constraints.maxWidth / 2) - 5),
+                              width: (constraints.maxWidth / 2) - 5,
+                              onTimeSelected: _selectStartTime,
+                            ),
                           ],
                         )),
                   ),
@@ -178,7 +218,9 @@ class FormGlassMorphicTextInput extends StatelessWidget {
 
 class GlassMorphicDateAndTime extends StatefulWidget {
   final double width;
-  const GlassMorphicDateAndTime({Key? key, required this.width})
+  final Function onDateSelected;
+  const GlassMorphicDateAndTime(
+      {Key? key, required this.width, required this.onDateSelected})
       : super(key: key);
 
   @override
@@ -197,6 +239,7 @@ class _GlassMorphicDateAndTimeState extends State<GlassMorphicDateAndTime> {
       lastDate: DateTime(2030),
     );
     if (selectedDate != null) {
+      widget.onDateSelected(selectedDate);
       setState(() {
         _selectedDate = selectedDate;
       });
@@ -238,7 +281,9 @@ class _GlassMorphicDateAndTimeState extends State<GlassMorphicDateAndTime> {
 
 class GlassMorphicTimePicker extends StatefulWidget {
   final double width;
-  const GlassMorphicTimePicker({Key? key, required this.width})
+  final Function onTimeSelected;
+  const GlassMorphicTimePicker(
+      {Key? key, required this.width, required this.onTimeSelected})
       : super(key: key);
 
   @override
@@ -257,6 +302,7 @@ class _GlassMorphicTimePickerState extends State<GlassMorphicTimePicker> {
           initialTime: TimeOfDay.now(),
         );
         if (selectedTime != null) {
+          widget.onTimeSelected(selectedTime);
           setState(() {
             _selectedTime = selectedTime;
           });
@@ -387,7 +433,19 @@ class LocationInput extends StatefulWidget {
 class _LocationInputState extends State<LocationInput> {
   Location? pickedLocation;
 
-  Future<void> _selectOnMap() async {}
+  Future<void> _selectOnMap() async {
+    final location = await Navigator.of(context).push<Location>(
+      MaterialPageRoute(
+        builder: (context) => const SelectOnMapScreen(),
+      ),
+    );
+    if (location != null) {
+      setState(() {
+        pickedLocation = location;
+      });
+      widget.onLocationSelected(location);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -396,7 +454,12 @@ class _LocationInputState extends State<LocationInput> {
       child: GlassContainer.frostedGlass(
         height: 55,
         width: double.maxFinite,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical:
+                (pickedLocation != null && pickedLocation!.address!.isEmpty)
+                    ? 0
+                    : 2),
         borderRadius: BorderRadius.circular(8),
         child: Row(
           children: <Widget>[

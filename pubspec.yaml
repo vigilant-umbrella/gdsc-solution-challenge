@@ -47,6 +47,8 @@ dependencies:
   cloud_firestore: ^3.1.10
   multi_select_flutter: ^4.1.2
   image_picker: ^0.8.4+11
+  location: ^4.3.0
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:
