@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gdsc_solution_challenge/services/firestore_service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   final userStream = FirebaseAuth.instance.authStateChanges();
-  final a = FirebaseAuth.instance.currentUser;
+  final user = FirebaseAuth.instance.currentUser;
 
   Future<void> googleLogin() async {
     try {
@@ -29,6 +30,8 @@ class AuthService {
       print('User Photo: ${UserCredential.user?.photoURL}');
       print('User Auth Token: ${await UserCredential.user?.getIdToken()}');
       print('------------------------------------------------');
+
+      await FirestoreService().getOrCreateUser();
     } on FirebaseAuthException catch (e) {
       print(e.code);
     }
