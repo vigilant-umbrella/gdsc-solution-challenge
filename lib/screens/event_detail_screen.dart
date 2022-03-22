@@ -88,6 +88,7 @@ class _EventDetailScreenLoggedInState extends State<EventDetailScreenLoggedIn> {
           body: SlidingUpPanel(
             maxHeight: panelOpenHeight,
             renderPanelSheet: false,
+            defaultPanelState: PanelState.OPEN,
             panel: GlassContainer.clearGlass(
               height: panelOpenHeight,
               width: double.maxFinite,
