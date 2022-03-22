@@ -5,6 +5,7 @@ import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
 import 'package:gdsc_solution_challenge/screens/login_screen.dart';
 import 'package:gdsc_solution_challenge/services/auth_service.dart';
 import 'package:gdsc_solution_challenge/widgets/loader.dart';
+import 'package:gdsc_solution_challenge/widgets/qr.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
@@ -108,32 +109,48 @@ class _OrganisingEventDetailScreenLoggedInState
 
     // if event is in the future
     if (eventDate.isAfter(now)) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Flexible(
-            flex: 1,
-            child: ElevatedButton.icon(
-              icon: const Icon(Icons.edit),
-              label: const Text('Edit'),
-              onPressed: () => _handleEditButtonClick(),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.black,
-                minimumSize: const Size.fromHeight(35),
+      return Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Flexible(
+                flex: 1,
+                child: ElevatedButton.icon(
+                  icon: const Icon(Icons.edit),
+                  label: const Text('Edit'),
+                  onPressed: () => _handleEditButtonClick(),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.black,
+                    minimumSize: const Size.fromHeight(35),
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(width: 10),
+              Flexible(
+                flex: 1,
+                child: ElevatedButton.icon(
+                  icon: const Icon(Icons.delete),
+                  label: const Text('Delete'),
+                  onPressed: () => _handleDeleteButtonClick(),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.red,
+                    minimumSize: const Size.fromHeight(35),
+                  ),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: 10),
-          Flexible(
-            flex: 1,
-            child: ElevatedButton.icon(
-              icon: const Icon(Icons.delete),
-              label: const Text('Delete'),
-              onPressed: () => _handleDeleteButtonClick(),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.red,
-                minimumSize: const Size.fromHeight(35),
-              ),
+          ElevatedButton.icon(
+            icon: const Icon(Icons.qr_code),
+            label: const Text('Show Attendance QR'),
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const GenerateQR()));
+            },
+            style: ElevatedButton.styleFrom(
+              primary: Colors.black,
+              minimumSize: const Size.fromHeight(35),
             ),
           ),
         ],
@@ -174,6 +191,7 @@ class _OrganisingEventDetailScreenLoggedInState
           body: SlidingUpPanel(
             maxHeight: panelOpenHeight,
             renderPanelSheet: false,
+            defaultPanelState: PanelState.OPEN,
             panel: GlassContainer.clearGlass(
               height: panelOpenHeight,
               width: double.maxFinite,

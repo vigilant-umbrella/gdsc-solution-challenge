@@ -1,3 +1,4 @@
+import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gdsc_solution_challenge/models/event_model.dart';
@@ -73,13 +74,17 @@ class _AttendingEventDetailScreenLoggedInState
 
     // if event is in the future
     if (eventDate.isAfter(now)) {
-      return ElevatedButton(
-        onPressed: () {},
-        child: const Text('Verify Attendance'),
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(
-            Colors.black,
-          ),
+      return ElevatedButton.icon(
+        icon: const Icon(Icons.qr_code),
+        label: const Text('Show Attendance QR'),
+        onPressed: () async {
+          ScanResult codeSanner = await BarcodeScanner.scan();
+          print(codeSanner
+              .rawContent); // Replace with API call to mark attendance
+        },
+        style: ElevatedButton.styleFrom(
+          primary: Colors.black,
+          minimumSize: const Size.fromHeight(35),
         ),
       );
     } else {
@@ -114,6 +119,7 @@ class _AttendingEventDetailScreenLoggedInState
           body: SlidingUpPanel(
             maxHeight: panelOpenHeight,
             renderPanelSheet: false,
+            defaultPanelState: PanelState.OPEN,
             panel: GlassContainer.clearGlass(
               height: panelOpenHeight,
               width: double.maxFinite,
