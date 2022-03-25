@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gdsc_solution_challenge/models/event_model.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
+import 'package:gdsc_solution_challenge/screens/edit_event_screen.dart';
 import 'package:gdsc_solution_challenge/screens/login_screen.dart';
 import 'package:gdsc_solution_challenge/services/auth_service.dart';
 import 'package:gdsc_solution_challenge/widgets/loader.dart';
@@ -68,7 +69,10 @@ class _OrganisingEventDetailScreenLoggedInState
     await launch(uri.toString());
   }
 
-  void _handleEditButtonClick() {}
+  void _handleEditButtonClick(Event event) {
+    Navigator.of(context)
+        .pushNamed(EditEventScreen.routeName, arguments: event);
+  }
 
   void _handleDeleteButtonClick() {
     // ask for confirmation
@@ -119,7 +123,7 @@ class _OrganisingEventDetailScreenLoggedInState
                 child: ElevatedButton.icon(
                   icon: const Icon(Icons.edit),
                   label: const Text('Edit'),
-                  onPressed: () => _handleEditButtonClick(),
+                  onPressed: () => _handleEditButtonClick(event),
                   style: ElevatedButton.styleFrom(
                     primary: Colors.black,
                     minimumSize: const Size.fromHeight(35),
