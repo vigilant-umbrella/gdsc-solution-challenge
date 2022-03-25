@@ -12,17 +12,18 @@ import 'package:provider/provider.dart';
 import 'package:location/location.dart';
 
 class SelectOnMapScreen extends StatefulWidget {
+  final LocationModel.Location? initialLocation;
   // route
   static const routeName = '/select-on-map';
 
-  const SelectOnMapScreen({Key? key}) : super(key: key);
+  const SelectOnMapScreen({Key? key, this.initialLocation}) : super(key: key);
 
   @override
   State<SelectOnMapScreen> createState() => _SelectOnMapScreenState();
 }
 
 class _SelectOnMapScreenState extends State<SelectOnMapScreen> {
-  final LatLng _initialCameraPosition = const LatLng(28.6139, 77.2090);
+  LatLng? _initialCameraPosition = const LatLng(28.6139, 77.2090);
 
   // variables
   late String _mapStyle;
@@ -47,7 +48,9 @@ class _SelectOnMapScreenState extends State<SelectOnMapScreen> {
     controller.setMapStyle(_mapStyle);
 
     // pan to current location
-    _panToCurrentLocation(controller);
+    if (widget.initialLocation == null) {
+      _panToCurrentLocation(controller);
+    }
   }
 
   void _selectLocation(LatLng position) {
@@ -57,13 +60,7 @@ class _SelectOnMapScreenState extends State<SelectOnMapScreen> {
   }
 
   Future<String?> getPlaceAddress(double lat, double lng) async {
-    // final url =
-    //     'Waiting for ashok to make the api';
     try {
-      // final response = await http.get(
-      //   Uri.parse(url),
-      // );
-      // return json.decode(response.body)['results'][0]['formatted_address'];
       return 'Waiting for ashok to make the api';
     } catch (e) {
       return null;
@@ -86,10 +83,18 @@ class _SelectOnMapScreenState extends State<SelectOnMapScreen> {
 
   @override
   void initState() {
-    super.initState();
     rootBundle.loadString('assets/map_style.json').then((string) {
       _mapStyle = string;
     });
+
+    if (widget.initialLocation != null) {
+      _pickedLocation =
+          LatLng(widget.initialLocation!.lat, widget.initialLocation!.lng);
+      _initialCameraPosition =
+          LatLng(widget.initialLocation!.lat, widget.initialLocation!.lng);
+    }
+
+    super.initState();
   }
 
   @override
@@ -111,7 +116,7 @@ class _SelectOnMapScreenState extends State<SelectOnMapScreen> {
         body: GoogleMap(
           myLocationEnabled: true,
           initialCameraPosition: CameraPosition(
-            target: _initialCameraPosition,
+            target: _initialCameraPosition!,
             zoom: 15,
           ),
           mapType: MapType.normal,

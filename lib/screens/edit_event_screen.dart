@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:gdsc_solution_challenge/models/event_model.dart';
 import 'package:gdsc_solution_challenge/models/location_model.dart';
 import 'package:gdsc_solution_challenge/providers/theme_provider.dart';
 import 'package:gdsc_solution_challenge/screens/login_screen.dart';
@@ -13,15 +14,16 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class NewEventScreen extends StatelessWidget {
+class EditEventScreen extends StatelessWidget {
   // route name
-  static const routeName = '/new_event_form';
+  static const routeName = '/edit_event_form';
 
   // constructor
-  const NewEventScreen({Key? key}) : super(key: key);
+  const EditEventScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final event = ModalRoute.of(context)!.settings.arguments as Event;
     return StreamBuilder(
       stream: AuthService().userStream,
       builder: (ctx, snapshot) {
@@ -32,7 +34,9 @@ class NewEventScreen extends StatelessWidget {
             child: Text('Some Error Occured'),
           );
         } else if (snapshot.hasData) {
-          return const NewEventScreenLoggedIn();
+          return EditEventScreenLoggedIn(
+            event: event,
+          );
         } else {
           return const LoginScreen();
         }
@@ -41,14 +45,18 @@ class NewEventScreen extends StatelessWidget {
   }
 }
 
-class NewEventScreenLoggedIn extends StatefulWidget {
-  const NewEventScreenLoggedIn({Key? key}) : super(key: key);
+class EditEventScreenLoggedIn extends StatefulWidget {
+  final Event event;
+
+  const EditEventScreenLoggedIn({Key? key, required this.event})
+      : super(key: key);
 
   @override
-  State<NewEventScreenLoggedIn> createState() => _NewEventScreenLoggedInState();
+  State<EditEventScreenLoggedIn> createState() =>
+      _EditEventScreenLoggedInState();
 }
 
-class _NewEventScreenLoggedInState extends State<NewEventScreenLoggedIn> {
+class _EditEventScreenLoggedInState extends State<EditEventScreenLoggedIn> {
   final _formKey = GlobalKey<FormState>();
 
   final _eventNameController = TextEditingController();
@@ -59,7 +67,8 @@ class _NewEventScreenLoggedInState extends State<NewEventScreenLoggedIn> {
 
   TimeOfDay? _eventStartTime;
 
-  File? _pickedImage;
+  // _pickedImage can be a File or a string
+  dynamic _pickedImage;
 
   Location? _pickedLocation;
 
@@ -107,6 +116,32 @@ class _NewEventScreenLoggedInState extends State<NewEventScreenLoggedIn> {
     print(DateFormat('yyyy-MM-dd HH:mm').format(date));
     print(_pickedImage);
     print(_pickedLocation);
+  }
+
+  @override
+  void initState() {
+    // set the initial values
+    _eventNameController.text = widget.event.eventTitle;
+    _eventDescriptionController.text = widget.event.description;
+    _eventTags = widget.event.tags;
+    // get event date from DD/MM/YYYY format
+    final eventDate = DateFormat('dd/MM/yyyy').parse(widget.event.date);
+    _eventDate = eventDate;
+
+    // get event start time from HH:mm format
+    final startTime = DateFormat('HH:mm').parse(widget.event.startsAt);
+    _eventStartTime = TimeOfDay(hour: startTime.hour, minute: startTime.minute);
+
+    _pickedImage = widget.event.image;
+
+    // create a location object from the location
+    _pickedLocation = Location(
+      lat: widget.event.location.lat,
+      lng: widget.event.location.lng,
+      address: widget.event.venue,
+    );
+
+    super.initState();
   }
 
   @override
@@ -170,21 +205,28 @@ class _NewEventScreenLoggedInState extends State<NewEventScreenLoggedIn> {
                             GlassMorphicDateAndTime(
                               width: (constraints.maxWidth / 2) - 5,
                               onDateSelected: _selectEventDate,
+                              initialDate: _eventDate,
                             ),
                             GlassMorphicTimePicker(
                               width: (constraints.maxWidth / 2) - 5,
                               onTimeSelected: _selectStartTime,
+                              initialTime: _eventStartTime,
                             ),
                           ],
                         )),
                   ),
                   const SizedBox(height: 20),
-                  LocationInput(onLocationSelected: _selectLocation),
+                  LocationInput(
+                      onLocationSelected: _selectLocation,
+                      initialLocation: _pickedLocation),
                   const SizedBox(height: 20),
-                  ImageInput(onImageSelected: _selectImage),
+                  ImageInput(
+                      onImageSelected: _selectImage,
+                      initialImage: _pickedImage),
                   const SizedBox(height: 20),
                   DropDownMultiSelect(
                     onSelected: getEventTags,
+                    initialTags: _eventTags,
                   ),
                 ],
               ),
@@ -240,9 +282,13 @@ class FormGlassMorphicTextInput extends StatelessWidget {
 class GlassMorphicDateAndTime extends StatefulWidget {
   final double width;
   final Function onDateSelected;
-  const GlassMorphicDateAndTime(
-      {Key? key, required this.width, required this.onDateSelected})
-      : super(key: key);
+  final DateTime? initialDate;
+  const GlassMorphicDateAndTime({
+    Key? key,
+    required this.width,
+    required this.onDateSelected,
+    this.initialDate,
+  }) : super(key: key);
 
   @override
   State<GlassMorphicDateAndTime> createState() =>
@@ -251,6 +297,14 @@ class GlassMorphicDateAndTime extends StatefulWidget {
 
 class _GlassMorphicDateAndTimeState extends State<GlassMorphicDateAndTime> {
   DateTime? _selectedDate;
+
+  @override
+  void initState() {
+    if (widget.initialDate != null) {
+      _selectedDate = widget.initialDate;
+    }
+    super.initState();
+  }
 
   void _showDatePicker() async {
     final selectedDate = await showDatePicker(
@@ -303,8 +357,12 @@ class _GlassMorphicDateAndTimeState extends State<GlassMorphicDateAndTime> {
 class GlassMorphicTimePicker extends StatefulWidget {
   final double width;
   final Function onTimeSelected;
+  final TimeOfDay? initialTime;
   const GlassMorphicTimePicker(
-      {Key? key, required this.width, required this.onTimeSelected})
+      {Key? key,
+      required this.width,
+      required this.onTimeSelected,
+      this.initialTime})
       : super(key: key);
 
   @override
@@ -313,6 +371,14 @@ class GlassMorphicTimePicker extends StatefulWidget {
 
 class _GlassMorphicTimePickerState extends State<GlassMorphicTimePicker> {
   TimeOfDay? _selectedTime;
+
+  @override
+  void initState() {
+    if (widget.initialTime != null) {
+      _selectedTime = widget.initialTime;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -360,14 +426,24 @@ class _GlassMorphicTimePickerState extends State<GlassMorphicTimePicker> {
 
 class ImageInput extends StatefulWidget {
   final Function onImageSelected;
-  const ImageInput({Key? key, required this.onImageSelected}) : super(key: key);
+  final dynamic initialImage;
+  const ImageInput({Key? key, required this.onImageSelected, this.initialImage})
+      : super(key: key);
 
   @override
   State<ImageInput> createState() => _ImageInputState();
 }
 
 class _ImageInputState extends State<ImageInput> {
-  File? _imageFile;
+  dynamic _imageFile;
+
+  @override
+  void initState() {
+    if (widget.initialImage != null) {
+      _imageFile = widget.initialImage;
+    }
+    super.initState();
+  }
 
   Future<void> _getImage() async {
     final _picker = ImagePicker();
@@ -380,6 +456,14 @@ class _ImageInputState extends State<ImageInput> {
         _imageFile = selectedFile;
       });
       widget.onImageSelected(selectedFile);
+    }
+  }
+
+  Widget buildImageComponent() {
+    if (_imageFile is String) {
+      return Image.network(_imageFile, fit: BoxFit.cover);
+    } else {
+      return Image.file(_imageFile, fit: BoxFit.cover);
     }
   }
 
@@ -415,10 +499,7 @@ class _ImageInputState extends State<ImageInput> {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: Image.file(
-                      _imageFile!,
-                      fit: BoxFit.cover,
-                    ),
+                    child: buildImageComponent(),
                   ),
                   Positioned(
                     top: 10,
@@ -444,7 +525,10 @@ class _ImageInputState extends State<ImageInput> {
 class LocationInput extends StatefulWidget {
   final Function onLocationSelected;
 
-  const LocationInput({Key? key, required this.onLocationSelected})
+  final Location? initialLocation;
+
+  const LocationInput(
+      {Key? key, required this.onLocationSelected, this.initialLocation})
       : super(key: key);
 
   @override
@@ -454,10 +538,19 @@ class LocationInput extends StatefulWidget {
 class _LocationInputState extends State<LocationInput> {
   Location? pickedLocation;
 
+  @override
+  void initState() {
+    if (widget.initialLocation != null) {
+      pickedLocation = widget.initialLocation;
+    }
+    super.initState();
+  }
+
   Future<void> _selectOnMap() async {
     final location = await Navigator.of(context).push<Location>(
       MaterialPageRoute(
-        builder: (context) => const SelectOnMapScreen(),
+        builder: (context) =>
+            SelectOnMapScreen(initialLocation: widget.initialLocation),
       ),
     );
     if (location != null) {

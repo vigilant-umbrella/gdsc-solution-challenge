@@ -11,8 +11,10 @@ class Tag {
 
 class DropDownMultiSelect extends StatefulWidget {
   final Function onSelected;
+  final List<String>? initialTags;
 
-  const DropDownMultiSelect({Key? key, required this.onSelected})
+  const DropDownMultiSelect(
+      {Key? key, required this.onSelected, this.initialTags})
       : super(key: key);
 
   @override
@@ -50,12 +52,34 @@ class _DropDownMultiSelectState extends State<DropDownMultiSelect> {
     Tag('Tag 25', 25),
     Tag('Tag 26', 26),
     Tag('Tag 27', 27),
+    Tag('Nature', 28),
+    Tag('Beach', 29),
+    Tag('Mountain', 30),
   ];
+
+  // List<Tag>? getInitialValues() {
+  //   if (widget.initialTags != null) {
+  //     return widget.initialTags!.map((tag) {
+  //       return _availableTags.firstWhere((t) => t.name == tag);
+  //     }).toList();
+  //   }
+
+  //   return null;
+  // }
+
+  @override
+  void initState() {
+    if (widget.initialTags != null) {
+      _selectedItems = widget.initialTags!;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return GlassContainer.frostedGlass(
       height: 55 + (55 * ((_selectedItems.length / 4).ceil().toDouble())),
+      // height: 255,
       width: double.maxFinite,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       borderRadius: BorderRadius.circular(8),
@@ -73,12 +97,14 @@ class _DropDownMultiSelectState extends State<DropDownMultiSelect> {
         items: _availableTags
             .map((tag) => MultiSelectItem<String>(tag.name, tag.name))
             .toList(),
-        onConfirm: (List<String> selected) {
-          widget.onSelected(selected);
+        onConfirm: (selected) {
+          final stringList = selected.map((item) => item.toString()).toList();
+          widget.onSelected(stringList);
           setState(() {
-            _selectedItems = selected;
+            _selectedItems = stringList;
           });
         },
+        initialValue: _selectedItems,
       ),
     );
   }
