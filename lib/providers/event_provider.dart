@@ -68,10 +68,4 @@ class Events with ChangeNotifier {
 
     return;
   }
-
-  Future<Event> getEventById(String id) async {
-    await wait(1);
-    final event = _events.firstWhere((event) => event.eventId == id);
-    return event;
-  }
 }
