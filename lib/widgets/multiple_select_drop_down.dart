@@ -98,13 +98,7 @@ class _DropDownMultiSelectState extends State<DropDownMultiSelect> {
             .map((tag) => MultiSelectItem<String>(tag.name, tag.name))
             .toList(),
         onConfirm: (selected) {
-          print('---------------');
-          print(selected);
-          print('---------------');
-
-          // print the selected items
           final stringList = selected.map((item) => item.toString()).toList();
-
           widget.onSelected(stringList);
           setState(() {
             _selectedItems = stringList;
