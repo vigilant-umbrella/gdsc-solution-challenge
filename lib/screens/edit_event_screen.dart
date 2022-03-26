@@ -159,7 +159,7 @@ class _EditEventScreenLoggedInState extends State<EditEventScreenLoggedIn> {
       ),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Add new event'),
+          title: const Text('Edit event'),
           actions: [
             IconButton(
               icon: const Icon(Icons.check),
